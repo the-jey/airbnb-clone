@@ -6,8 +6,7 @@ import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import axios from "axios";
 import { Range } from "react-date-range";
 
-import { Reservation } from "@prisma/client";
-import { SafeListing, SafeUser } from "@/app/types";
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 
 import useLoginModal from "@/app/hooks/useLoginModal";
 
@@ -25,7 +24,7 @@ const initialDateRange = {
 }
 
 interface ListingClientProps {
-  reservations?: Reservation[];
+  reservations?: SafeReservation[];
   listing: SafeListing & {
     user: SafeUser;
   };
@@ -50,7 +49,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         end: new Date(reservation.endDate)
       })
 
-      dates = {... dates, ...range}
+      dates = [...dates, ...range];
 
     });
     
